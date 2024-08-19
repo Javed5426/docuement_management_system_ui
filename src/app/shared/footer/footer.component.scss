@@ -1,0 +1,35 @@
+/* Basic styling for footer */
+.footer {
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .footer-nav li {
+    margin-left: 1rem;
+  }
+  
+  .footer-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  
+  .footer-nav a:hover {
+    text-decoration: underline;
+  }
+  
