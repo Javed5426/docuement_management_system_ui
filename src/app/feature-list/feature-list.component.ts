@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { FeaturelistService } from '../featurelist/featurelist.service';
 
 @Component({
   selector: 'app-feature-list',
@@ -7,18 +8,22 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./feature-list.component.scss']
 })
 export class FeatureListComponent implements OnInit {
+  data: any = "";
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private _service:FeaturelistService
+  ) { }
 
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd:', event.urlAfterRedirects);
-        // Check if a specific module is loaded based on URL or route
-        if (event.urlAfterRedirects.includes('/feature')) {
-          console.log('Feature componet is loaded', "component");
-        }
-      }
+    this.getAllData();
+  }
+  getAllData() {
+    const payload = {
+      "id":"",
+      "documentName":""
+    }
+    this._service.getAllData(payload).subscribe( res=>{
+      this.data = res.response;
     });
   }
 

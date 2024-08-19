@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FeatureListRoutingModule } from './feature-list-routing.module';
 import { FeatureListComponent } from './feature-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { FeaturelistService } from '../featurelist/featurelist.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -10,8 +13,10 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     FeatureListRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    HttpClientModule 
+  ],
+  providers:[FeaturelistService]
 })
 export class FeatureListModule { 
   constructor() {
