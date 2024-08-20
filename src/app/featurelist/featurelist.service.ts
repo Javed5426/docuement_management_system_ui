@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FeaturelistService {
-  
+ 
   constructor(private _http:HttpClient) { }
 
   private commonUrl = "http://localhost:8091";
@@ -17,6 +17,18 @@ export class FeaturelistService {
   }
 
   downloadFile(id: any) {
-    return this._http.post(this.commonUrl + '/myDocuments' + `/download/${id}`, '')
+    const url = this.commonUrl + '/myDocuments' + `/download/${id}`;
+      const headers = new HttpHeaders({
+        'Accept': 'application/octet-stream'
+      });
+      return this._http.post(url, null, {
+        responseType: 'blob',
+        headers: headers
+    });
   }
+
+  deleteFile(id: number) {
+    return this._http.delete(this.commonUrl + '/myDocuments' + `/deleteById?id=${id}`)
+  }
+  
 }

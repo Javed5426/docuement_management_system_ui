@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeaturelistService } from '../featurelist/featurelist.service';
+import { saveAs } from 'file-saver';
+ 
 
 @Component({
   selector: 'app-feature-list',
@@ -9,6 +11,8 @@ import { FeaturelistService } from '../featurelist/featurelist.service';
 })
 export class FeatureListComponent implements OnInit {
   data: any = "";
+  errorMsg: { msg: any; status: string; }[] | undefined;
+  showTableFlag: any = false;
 
   constructor(private router: Router,
     private _service:FeaturelistService,
@@ -25,17 +29,27 @@ export class FeatureListComponent implements OnInit {
     }
     this._service.getAllData(payload).subscribe( res=>{
       this.data = res.response;
+      this.showTableFlag = res.result;
     });
   }
 
-  downloadFileById(id:any){
-    this._service.downloadFile(id).subscribe(res=>{
-      console.log("file downloaded")
-    })
+  downloadFileById(value:any){
+    console.log(value)
+    this._service.downloadFile(value.id).subscribe((res: Blob) => {
+      let originalFileName = value.documentName;
+      const extentionOfFile = originalFileName.slice(originalFileName.lastIndexOf("."), originalFileName.length);
+      const fileNameWithoutEx = originalFileName.slice(0, originalFileName.includes(" ")?originalFileName.indexOf(" "):originalFileName.lastIndexOf("."));
+      const downloadfileName = `${fileNameWithoutEx}_downloded`+extentionOfFile;
+      saveAs(res, downloadfileName);
+    }, error => {
+      console.error('Download failed:', error);
+    });
   }
 
-  deletedDocument(id:any){
-    console.log("File being downloaded." , id)
+  deletedDocument(id:number){
+    this._service.deleteFile(id).subscribe((res:any)=>{
+      this.errorMsg = [{msg:res.message, status:"success"}]
+    })
   }
 
 }
