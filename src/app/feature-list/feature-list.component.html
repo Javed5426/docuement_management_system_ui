@@ -2,14 +2,25 @@
 
 <div class="container mt-4" >
 
-  <!-- <div class="card" *ngIf="errorMsg?errorMsg.msg != undefined">
+  <div class="card" *ngIf="errorMsg && errorMsg.msg">
     <div class="card-body">
-      <p *ngIf="errorMsg.status == 'success'">{{errorMsg.msg}}</p>
+      <p *ngIf="errorMsg.status === 'success'" class="text-success">
+        {{errorMsg.msg}}
+      </p>
+      <p *ngIf="errorMsg.status === 'error'" class="text-danger">
+        {{errorMsg.msg}}
+      </p>
     </div>
-  </div> -->
+  </div>
 
   <h4 class="mt-4">Uploaded file</h4>
   <hr>
+
+  <div class="card" *ngIf="!showTableFlag">
+    <div class="card-body">
+      <h4 class="d-flex justify-content-center">No data found</h4>
+    </div>
+  </div>
 
   <div *ngIf="showTableFlag">
     <table class="table table-bordered border-primary mt-3">

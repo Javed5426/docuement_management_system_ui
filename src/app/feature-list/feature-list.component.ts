@@ -11,7 +11,7 @@ import { saveAs } from 'file-saver';
 })
 export class FeatureListComponent implements OnInit {
   data: any = "";
-  errorMsg: { msg: any; status: string; }[] | undefined;
+  errorMsg: { msg: string; status: string } | null = null;
   showTableFlag: any = false;
 
   constructor(private router: Router,
@@ -48,8 +48,11 @@ export class FeatureListComponent implements OnInit {
 
   deletedDocument(id:number){
     this._service.deleteFile(id).subscribe((res:any)=>{
-      this.errorMsg = [{msg:res.message, status:"success"}]
+      console.log(res.msg)
+      this.errorMsg = {msg:res.message, status:"success"}
     })
+
+    this.getAllData();
   }
 
 }
