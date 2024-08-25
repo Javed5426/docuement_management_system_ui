@@ -38,5 +38,9 @@ export class FeaturelistService {
     return this._http.post(this.commonUrl + '/myDocuments' + '/uploadFile', formData);
   
   }
+
+  autoSuggest(data:any){
+    return this._http.post(this.commonUrl + '/myDocuments' +'/autoSuggestion', data)
+  }
   
 }

@@ -14,6 +14,7 @@ export class FeatureListComponent implements OnInit {
   data: any = "";
   errorMsg: { msg: string; status: string } | null = null;
   showTableFlag: any = false;
+  docName: any = "";
 
   constructor(private router: Router,
     private _service: FeaturelistService,
@@ -37,7 +38,7 @@ export class FeatureListComponent implements OnInit {
   downloadFileById(value: any) {
     console.log(value)
     this._service.downloadFile(value.id).subscribe((res: Blob) => {
-      let originalFileName = value.documentName;
+      let originalFileName = value.fileName;
       const extentionOfFile = originalFileName.slice(originalFileName.lastIndexOf("."), originalFileName.length);
       const fileNameWithoutEx = originalFileName.slice(0, originalFileName.includes(" ") ? originalFileName.indexOf(" ") : originalFileName.lastIndexOf("."));
       const downloadfileName = `${fileNameWithoutEx}_downloded` + extentionOfFile;
@@ -85,5 +86,18 @@ export class FeatureListComponent implements OnInit {
 
   resetButton(id: any,fieldType:any){
     this.getAllData(); 
+  }
+
+  autoSuggestionDD(fileName: any , fieldType:any){
+   
+    let payload = {
+      documentName:fileName
+    }
+    if(fieldType.value === "documentName"){
+      this._service.autoSuggest(payload).subscribe((res:any) => {
+        this.docName = res[0].fileName;
+      })
+    }
+    
   }
 }
