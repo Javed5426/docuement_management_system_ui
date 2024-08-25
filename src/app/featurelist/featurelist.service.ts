@@ -30,5 +30,13 @@ export class FeaturelistService {
   deleteFile(id: number) {
     return this._http.delete(this.commonUrl + '/myDocuments' + `/deleteById?id=${id}`)
   }
+
+  uploadFile(data:any):Observable<any>{
+    const formData = new FormData();
+    formData.append('file', data);
+    console.log("this data comming from service file",data)
+    return this._http.post(this.commonUrl + '/myDocuments' + '/uploadFile', formData);
+  
+  }
   
 }
