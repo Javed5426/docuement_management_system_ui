@@ -15,6 +15,7 @@ export class FeatureListComponent implements OnInit {
   errorMsg: { msg: string; status: string } | null = null;
   showTableFlag: any = false;
   docName: any = "";
+  showSearchFlag: boolean = false;
 
   constructor(private router: Router,
     private _service: FeaturelistService,
@@ -84,18 +85,21 @@ export class FeatureListComponent implements OnInit {
     });
   }
 
-  resetButton(id: any,fieldType:any){
+  resetButton(){
     this.getAllData(); 
   }
 
+  showSearchBar(){
+    this.showSearchFlag = !this.showSearchFlag;
+  }
   autoSuggestionDD(fileName: any , fieldType:any){
    
     let payload = {
       documentName:fileName
     }
-    if(fieldType.value === "documentName"){
+    if(fieldType.value === "documentName" && fileName.length > 3){
       this._service.autoSuggest(payload).subscribe((res:any) => {
-        this.docName = res[0].fileName;
+        this.docName = res;
       })
     }
     

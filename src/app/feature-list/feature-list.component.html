@@ -13,42 +13,36 @@
     </div>
   </div>
 
- 
-  
-
-  <h4 class="mt-4">Uploaded file</h4>
+  <div>
+    <div>
+      <h6><a class="link-opacity-100" data-bs-toggle="modal" data-bs-target="#uploadFile">Upload New File</a></h6>
+  </div>
+  <div>
+    <h6><a class="link-opacity-100" (click)="showSearchBar()"> {{ showSearchFlag ? 'Close Search Bar' : 'Open Search Bar' }}</a></h6>
+  </div>
+  </div>
   <hr>
 
-  <div class="input-group mb-3">
-
+  <div class="input-group mb-3" *ngIf="showSearchFlag">
     <select #selection class="input-group-text" id="basic-addon1">
       <option value="">Select</option>
       <option value="id">ID</option>
       <option value="documentName">Name</option>
-     </select>
+    </select>
 
-     <input #byid type="text" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
+    <input #byid type="text" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
       aria-label="Username" aria-describedby="basic-addon1" (keyup)="autoSuggestionDD(byid.value, selection)">
-
-    <button (click)="filterId(byid,selection)" class="input-group-text" id="basic-addon1"><svg xmlns="http://www.w3.org/2000/svg"
-        width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-        <path
-          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-      </svg></button>
-
-      <button (click)="resetButton(byid,selection)"  class="input-group-text" id="basic-addon1">Reset
+      <button (click)="filterId(byid,selection)" class="input-group-text" id="basic-addon1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
       </button>
-
+      <button (click)="resetButton()" class="input-group-text" id="basic-addon1">Reset</button>
       <datalist id="datalistOptions">
         <option [value]="docName">
       </datalist>
   </div>
 
-  <div class="input-group">
-    <input #file type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-    <button (click)="uploadFile(file)" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
-  </div>  
-  
   <div class="card" *ngIf="!showTableFlag">
     <div class="card-body">
       <h4 class="d-flex justify-content-center">No data found</h4>
@@ -81,6 +75,25 @@
     </table>
   </div>
 
+</div>
+
+
+<!-- Upload File Modal -->
+<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input #file type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+          <button (click)="uploadFile(file)" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
+        </div>        
+      </div>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>
