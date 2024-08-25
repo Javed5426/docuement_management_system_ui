@@ -30,17 +30,21 @@
       <option value="documentName">Name</option>
     </select>
 
-    <input #byid type="text" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
+    <input #byid type="text" class="form-control"  [matAutocomplete]="auto" placeholder="Type to search..."
       aria-label="Username" aria-describedby="basic-addon1" (keyup)="autoSuggestionDD(byid.value, selection)">
+      
+      <mat-autocomplete #auto="matAutocomplete">
+        
+          <mat-option *ngFor="let data of docName" [value]="data.fileName">{{data.fileName}}</mat-option>
+          </mat-autocomplete>
+
       <button (click)="filterId(byid,selection)" class="input-group-text" id="basic-addon1">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
       </button>
       <button (click)="resetButton()" class="input-group-text" id="basic-addon1">Reset</button>
-      <datalist id="datalistOptions">
-        <option [value]="docName">
-      </datalist>
+   
   </div>
 
   <div class="card" *ngIf="!showTableFlag">

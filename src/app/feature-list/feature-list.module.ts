@@ -5,6 +5,7 @@ import { FeatureListComponent } from './feature-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { FeaturelistService } from '../featurelist/featurelist.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -14,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     FeatureListRoutingModule,
     SharedModule,
-    HttpClientModule 
+    HttpClientModule,
+    MatAutocompleteModule
   ],
   providers:[FeaturelistService]
 })
